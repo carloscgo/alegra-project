@@ -5,8 +5,8 @@ FROM cypress/base:14.19.0
 WORKDIR /app
 
 # Copy dependency-related files
-COPY package.json ./
-COPY yarn.lock ./
+COPY ../package.json ./
+COPY ../yarn.lock ./
 
 # Install project dependencies
 RUN yarn install

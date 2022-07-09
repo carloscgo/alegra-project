@@ -1,16 +1,27 @@
 version: '3.7'
 
 volumes:
+  dist:
   dependencies:
 
 services:
   dev:
     build:
       context: .
-      dockerfile: ./docker-dev.dockerfile
+      dockerfile: ./docker-conf/docker-dev.dockerfile
     ports:
       - 8080:8080
     volumes:
       - .:/app
       - dependencies:/app/node_modules
+    tty: true
+  dist:
+    build:
+      context: .
+      dockerfile: ./docker-conf/docker-dist.dockerfile
+    ports:
+      - 8081:80
+    volumes:
+      - .:/dist
+      - dependencies:/dist
     tty: true
