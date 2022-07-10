@@ -2,11 +2,12 @@
 import Layout from '@layouts/main.vue'
 
 export default {
+  components: { Layout },
+
   page: {
     title: 'Loading page...',
-    meta: [{ name: 'description', content: 'Loading page...' }],
-  },
-  components: { Layout },
+    meta: [{ name: 'description', content: 'Loading page...' }]
+  }
 }
 </script>
 

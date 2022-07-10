@@ -2,24 +2,26 @@
 import Layout from '@layouts/main.vue'
 
 export default {
+  components: { Layout },
+
+  props: {
+    seller: {
+      type: Object,
+      required: true
+    }
+  },
+
   page() {
     return {
-      title: this.user.name,
+      title: this.seller.name,
       meta: [
         {
           name: 'description',
-          content: `The user profile for ${this.user.name}.`,
-        },
-      ],
+          content: `The user profile for ${this.seller.name}.`
+        }
+      ]
     }
-  },
-  components: { Layout },
-  props: {
-    user: {
-      type: Object,
-      required: true,
-    },
-  },
+  }
 }
 </script>
 
@@ -27,9 +29,9 @@ export default {
   <Layout>
     <h1>
       <BaseIcon name="user" />
-      {{ user.name }}
+      {{ seller.name }}
       Profile
     </h1>
-    <pre>{{ user }}</pre>
+    <pre>{{ seller }}</pre>
   </Layout>
 </template>

@@ -3,11 +3,12 @@ import appConfig from '@src/app.config'
 import Layout from '@layouts/main.vue'
 
 export default {
+  components: { Layout },
+
   page: {
     title: 'Home',
-    meta: [{ name: 'description', content: appConfig.description }],
-  },
-  components: { Layout },
+    meta: [{ name: 'description', content: appConfig.description }]
+  }
 }
 </script>
 

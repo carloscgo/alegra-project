@@ -2,17 +2,19 @@
 import Layout from '@layouts/main.vue'
 
 export default {
-  page: {
-    title: '404',
-    meta: [{ name: 'description', content: '404' }],
-  },
   components: { Layout },
+
   props: {
     resource: {
       type: String,
-      default: '',
-    },
+      default: ''
+    }
   },
+
+  page: {
+    title: '404',
+    meta: [{ name: 'description', content: '404' }]
+  }
 }
 </script>
 

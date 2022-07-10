@@ -7,12 +7,14 @@ export default {
   // have data, computed properties, etc and they have no
   // `this` context.
   functional: true,
+
   props: {
     routes: {
       type: Array,
-      required: true,
-    },
+      required: true
+    }
   },
+
   // Render functions are an alternative to templates
   render(h, { props, $style = {} }) {
     function getRouteTitle(route) {
@@ -32,7 +34,7 @@ export default {
         <a>{getRouteTitle(route)}</a>
       </BaseLink>
     ))
-  },
+  }
 }
 </script>
 

@@ -1,10 +1,8 @@
-import { mapState, mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
-export const authComputed = {
-  ...mapState('auth', {
-    currentUser: (state) => state.currentUser,
-  }),
-  ...mapGetters('auth', ['loggedIn']),
+export const sellerComputed = {
+  ...mapGetters('sellers', ['currentSeller']),
 }
 
-export const authMethods = mapActions('auth', ['logIn', 'logOut'])
+export const sellerMethods = {
+}

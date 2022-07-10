@@ -4,28 +4,33 @@ import Layout from '@layouts/main.vue'
 import LoadingView from './_loading.vue'
 
 export default {
+  components: { Layout, LoadingView },
+
   page: {
     title: 'Page timeout',
     meta: [
-      { name: 'description', content: 'The page timed out while loading.' },
-    ],
+      {
+        name: 'description',
+        content: 'The page timed out while loading.' }
+    ]
   },
-  components: { Layout, LoadingView },
+
   data() {
     return {
-      offlineConfirmed: false,
+      offlineConfirmed: false
     }
   },
+
   beforeCreate() {
     axios
-      .head('/api/ping')
+      .head('https://google.com/')
       .then(() => {
         window.location.reload()
       })
       .catch(() => {
         this.offlineConfirmed = true
       })
-  },
+  }
 }
 </script>
 

@@ -11,25 +11,28 @@ fontAwesomeIconLibrary.add(
 
 export default {
   components: {
-    FontAwesomeIcon,
+    FontAwesomeIcon
   },
+
   inheritAttrs: false,
+
   props: {
     source: {
       type: String,
-      default: 'font-awesome',
+      default: 'font-awesome'
     },
     name: {
       type: String,
-      required: true,
-    },
+      required: true
+    }
   },
+
   computed: {
     // Gets a CSS module class, e.g. iconCustomLogo
     customIconClass() {
       return this.$style[camelCase('icon-custom-' + this.name)]
-    },
-  },
+    }
+  }
 }
 </script>
 

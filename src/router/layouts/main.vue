@@ -2,7 +2,7 @@
 import NavBar from '@components/nav-bar.vue'
 
 export default {
-  components: { NavBar },
+  components: { NavBar }
 }
 </script>
 

@@ -1,14 +1,14 @@
-import * as usersModule from './users'
+import * as sellersModule from './sellers'
 
-describe('@state/modules/users', () => {
+describe('@state/modules/sellers', () => {
   it('exports a valid Vuex module', () => {
-    expect(usersModule).toBeAVuexModule()
+    expect(sellersModule).toBeAVuexModule()
   })
 
-  describe('in a store when logged in', () => {
+  describe('in a store when is consulted', () => {
     let store
     beforeEach(() => {
-      store = createModuleStore(usersModule, {
+      store = createModuleStore(sellersModule, {
         currentUser: validUserExample,
       })
     })
@@ -41,7 +41,7 @@ describe('@state/modules/users', () => {
   describe('in a store when logged out', () => {
     let store
     beforeEach(() => {
-      store = createModuleStore(usersModule)
+      store = createModuleStore(sellersModule)
     })
 
     it('actions.fetchUser rejects with 401', () => {

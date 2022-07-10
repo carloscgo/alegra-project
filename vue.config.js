@@ -25,15 +25,21 @@ module.exports = {
   },
   css: {
     // Enable CSS source maps.
-    sourceMap: true,
+    sourceMap: true
   },
   // Configure Webpack's dev server.
   // https://cli.vuejs.org/guide/cli-service.html
   devServer: {
-    ...(process.env.API_BASE_URL
+    disableHostCheck: true,
+    watchOptions: {
+      poll: true,
+      aggregateTimeout: 5000
+    },
+
+    ...(process.env.VUE_ALEGRA_API_URL
       ? // Proxy API endpoints to the production base URL.
-        { proxy: { '/api': { target: process.env.API_BASE_URL } } }
+        { proxy: { '/api': { target: process.env.VUE_ALEGRA_API_URL } } }
       : // Proxy API endpoints a local mock API.
-        { before: require('./tests/mock-api') }),
-  },
+        { before: require('./tests/mock-api') })
+  }
 }

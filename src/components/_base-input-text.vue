@@ -8,7 +8,7 @@ export default {
   // the behavior of the native `input` event.
   // https://vuejs.org/v2/guide/components-custom-events.html#Customizing-Component-v-model
   model: {
-    event: 'update',
+    event: 'update'
   },
   props: {
     type: {
@@ -25,9 +25,9 @@ export default {
           'text',
           'url',
         ].includes(value)
-      },
-    },
-  },
+      }
+    }
+  }
 }
 </script>
 
