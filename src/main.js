@@ -1,10 +1,8 @@
 import Vue from 'vue'
 import router from '@router'
 import store from '@state/store'
+import MaterialKit from "@utils/material-kit"
 import App from './app.vue'
-
-// Globally register all `_base`-prefixed components
-import '@components/_globals'
 
 // Don't warn about using the dev version of Vue in development.
 Vue.config.productionTip = process.env.NODE_ENV === 'production'
@@ -14,6 +12,8 @@ if (process.env.VUE_APP_TEST === 'e2e') {
   // Ensure tests fail when Vue emits an error.
   Vue.config.errorHandler = window.Cypress.cy.onUncaughtException
 }
+
+Vue.use(MaterialKit)
 
 const app = new Vue({
   router,

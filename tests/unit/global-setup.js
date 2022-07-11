@@ -1,6 +1,6 @@
 const app = require('express')()
 
-app.use((request, response, next) => {
+app.use((_request, response, next) => {
   response.header('Access-Control-Allow-Origin', '*')
   next()
 })
@@ -8,7 +8,7 @@ app.use((request, response, next) => {
 require('../mock-api')(app)
 
 module.exports = () => {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve, _reject) => {
     global.mockApiServer = app.listen(process.env.MOCK_API_PORT, resolve)
   })
 }

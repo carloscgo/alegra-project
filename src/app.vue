@@ -25,6 +25,8 @@ export default {
 
 <!-- This should generally be the only global CSS in the app. -->
 <style lang="scss">
+@import '~vue-material/dist/vue-material.min.css';
+
 // Allow element/type selectors, because this is global CSS.
 // stylelint-disable selector-max-type, selector-class-pattern
 
@@ -47,6 +49,7 @@ export default {
 body {
   background: $color-body-bg;
 }
+
 #app {
   @extend %typography-small;
 }

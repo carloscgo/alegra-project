@@ -1,5 +1,7 @@
 const appConfig = require('./src/app.config')
 
+const isProduction = process.env.NODE_ENV === "production"
+
 /** @type import('@vue/cli-service').ProjectOptions */
 module.exports = {
   // https://github.com/neutrinojs/webpack-chain/tree/v4#getting-started
@@ -18,14 +20,12 @@ module.exports = {
     // Only enable performance hints for production builds,
     // outside of tests.
     config.performance.hints(
-      process.env.NODE_ENV === 'production' &&
-        !process.env.VUE_APP_TEST &&
-        'warning'
+      isProduction && !process.env.VUE_APP_TEST && 'warning'
     )
   },
   css: {
     // Enable CSS source maps.
-    sourceMap: true
+    sourceMap: !isProduction
   },
   // Configure Webpack's dev server.
   // https://cli.vuejs.org/guide/cli-service.html

@@ -1,14 +1,15 @@
 <script>
-import NavBar from '@components/nav-bar.vue'
+import MainNavBar from '@layouts/main-nav-bar.vue'
 
 export default {
-  components: { NavBar }
+  components: { MainNavBar }
 }
 </script>
 
 <template>
   <div :class="$style.container">
-    <NavBar />
+    <MainNavBar />
+
     <slot />
   </div>
 </template>

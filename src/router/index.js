@@ -21,7 +21,7 @@ const router = new VueRouter({
   mode: 'history',
   // Simulate native-like scroll behavior when navigating to a new
   // route and using back/forward buttons.
-  scrollBehavior(to, from, savedPosition) {
+  scrollBehavior(_to, _from, savedPosition) {
     if (savedPosition) {
       return savedPosition
     } else {
@@ -30,8 +30,30 @@ const router = new VueRouter({
   }
 })
 
+const setResolve = async (route, next, routeTo, routeFrom) => {
+  await new Promise((resolve, reject) => {
+    // If a `beforeResolve` hook is defined, call it with
+    // the same arguments as the `beforeEnter` hook.
+    if (route.meta && route.meta.beforeResolve) {
+      route.meta.beforeResolve(routeTo, routeFrom, (...args) => {
+        // If the user chose to redirect...
+        if (args.length > 0) {
+          // Complete the redirect.
+          next(...args)
+          reject(new Error('Redirected'))
+        } else {
+          resolve()
+        }
+      })
+    } else {
+      // Otherwise, continue resolving the route.
+      resolve()
+    }
+  })
+}
+
 // Before each route evaluates...
-router.beforeEach((routeTo, routeFrom, next) => {
+router.beforeEach((_routeTo, routeFrom, next) => {
   // If this isn't an initial page load...
   if (routeFrom.name !== null) {
     // Start the route progress bar.
@@ -51,30 +73,7 @@ router.beforeResolve(async (routeTo, routeFrom, next) => {
   try {
     // For each matched route...
     for (const route of routeTo.matched) {
-      await new Promise((resolve, reject) => {
-        // If a `beforeResolve` hook is defined, call it with
-        // the same arguments as the `beforeEnter` hook.
-        if (route.meta && route.meta.beforeResolve) {
-          route.meta.beforeResolve(routeTo, routeFrom, (...args) => {
-            // If the user chose to redirect...
-            if (args.length) {
-              // If redirecting to the same route we're coming from...
-              if (routeFrom.name === args[0].name) {
-                // Complete the animation of the route progress bar.
-                NProgress.done()
-              }
-              // Complete the redirect.
-              next(...args)
-              reject(new Error('Redirected'))
-            } else {
-              resolve()
-            }
-          })
-        } else {
-          // Otherwise, continue resolving the route.
-          resolve()
-        }
-      })
+      await setResolve(route, next, routeTo, routeFrom)
     }
     // If a `beforeResolve` hook chose to redirect, just return.
   } catch (error) {
@@ -86,7 +85,7 @@ router.beforeResolve(async (routeTo, routeFrom, next) => {
 })
 
 // When each route is finished evaluating...
-router.afterEach((routeTo, routeFrom) => {
+router.afterEach((_routeTo, _routeFrom) => {
   // Complete the animation of the route progress bar.
   NProgress.done()
 })

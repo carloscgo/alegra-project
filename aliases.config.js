@@ -3,6 +3,7 @@ const fs = require('fs')
 const prettier = require('prettier')
 
 const aliases = {
+  '~': 'node_modules',
   '@': '.',
   '@src': 'src',
   '@router': 'src/router',

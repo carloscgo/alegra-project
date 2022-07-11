@@ -22,17 +22,17 @@ readFile(templatePath, (err, data) => {
         })
       }
 
-      writeFile(configPath, Buffer.from(result), (err) => {
-        if (err) {
+      writeFile(configPath, Buffer.from(result), (e) => {
+        if (e) {
           process.exitCode = 1
-          console.error(err.message)
+          console.error(e.message)
         } else {
           console.info('Complete', configPath)
         }
       })
-    } catch (err) {
+    } catch (e) {
       process.exitCode = 1
-      console.error(err.message)
+      console.error(e.message)
     }
   }
 })

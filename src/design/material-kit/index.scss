@@ -1,0 +1,58 @@
+/*!
+
+ =========================================================
+ * Vue Material Kit - v1.2.2
+ =========================================================
+
+ * Product Page: http://www.creative-tim.com/product/vue-material-kit
+ * Copyright 2019 Creative Tim (http://www.creative-tim.com)
+ * Licensed under MIT (https://github.com/creativetimofficial/vue-./blob/master/LICENSE.md)
+
+ =========================================================
+
+ * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+ */
+
+
+//variables and mixins
+@import "./variables";
+@import "./mixins";
+@import "./shadows";
+
+//plugin css
+@import "./plugins/_perfect-scrollbar";
+@import "./plugins/_plugin-nouislider";
+
+// Core CSS
+@import "./typography";
+@import "./buttons";
+@import "./carousel";
+@import "./autocomplete";
+@import "./misc";
+@import "./images";
+@import "./info-areas";
+@import "./datepicker";
+@import "./inputs";
+@import "./badges";
+@import "./progress";
+@import "./alerts";
+@import "./tables";
+@import "./layout";
+@import "./headers";
+@import "./example-pages";
+@import "./checkboxes";
+@import "./togglebutton";
+@import "./pagination";
+@import "./radios";
+@import "./pills";
+@import "./dialogs";
+@import "./navbars";
+@import "./popups";
+@import "./footers";
+
+// Fancy Stuff
+@import "./dropdown";
+@import "./cards";
+@import "./tabs";
+@import "./responsive";
