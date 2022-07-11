@@ -1,3 +1,5 @@
+import DropDown from "@components/drop-down.vue"
+import Modal from "@components/modal.vue"
 import Parallax from "@components/parallax.vue"
 import { VPopover } from "v-tooltip"
 /**
@@ -6,6 +8,8 @@ import { VPopover } from "v-tooltip"
 
 const GlobalComponents = {
   install(Vue) {
+    Vue.component('drop-down', DropDown)
+    Vue.component('modal', Modal)
     Vue.component('parallax', Parallax)
     Vue.component("v-popover", VPopover)
   }

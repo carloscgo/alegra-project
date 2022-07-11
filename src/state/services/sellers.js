@@ -7,6 +7,6 @@ export const findSeller = id => {
   } catch (error) {
     consoleLog({error})
 
-    return {}
+    return Promise.resolve({})
   }
 }

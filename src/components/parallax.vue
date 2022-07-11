@@ -9,9 +9,21 @@ export default {
     }
   },
 
+  mounted() {
+    const self = this
+
+    window.addEventListener("scroll", function () {
+      if (window.innerWidth > 991) {
+        const scrollVal = this.scrollY
+
+        self.checkForParallax(scrollVal)
+      }
+    })
+  },
+
   methods: {
     handleScroll(scrollVal) {
-      let oVal = scrollVal / 3
+      const oVal = scrollVal / 3
 
       this.styles = {
         transform: `translate3d(0, ${oVal}px,0)`
@@ -19,25 +31,13 @@ export default {
     },
 
     checkForParallax(scrollVal) {
-      let fn = debounce(
+      const fn = debounce(
         () => this.handleScroll(scrollVal),
         this.debounceTimeout
       )
 
       fn()
     }
-  },
-
-  mounted() {
-    let self = this
-
-    window.addEventListener("scroll", function() {
-      if (window.innerWidth > 991) {
-        let scrollVal = this.scrollY
-
-        self.checkForParallax(scrollVal)
-      }
-    })
   }
 }
 </script>

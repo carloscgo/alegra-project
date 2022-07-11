@@ -1,49 +1,67 @@
 <script>
+import { validationMixin } from 'vuelidate'
+import {
+  required,
+  minLength,
+  maxLength
+} from 'vuelidate/lib/validators'
 import { title, description } from '@src/app.config'
 import Layout from '@layouts/main.vue'
-import Parallax from "@components/parallax.vue"
+import {
+  imagesComputed,
+  imagesMethods
+} from '@state/helpers'
+import design from '@design'
 
 export default {
-  components: { Layout, Parallax },
+  components: { Layout },
 
   bodyClass: "index-page",
 
   page: {
     title: 'Home',
-    meta: [{ name: 'description', content: description }],
-
-    image: {
-      type: String,
-      default: require("@assets/images/nuk-pro-buildings.png")
-    },
-    leaf1: {
-      type: String,
-      default: require("@assets/images/leaf1.png")
-    },
-    leaf2: {
-      type: String,
-      default: require("@assets/images/leaf2.png")
-    },
-    leaf3: {
-      type: String,
-      default: require("@assets/images/leaf3.png")
-    },
-    leaf4: {
-      type: String,
-      default: require("@assets/images/leaf4.png")
-    }
+    meta: [{ name: 'description', content: description }]
   },
+
+  mixins: [validationMixin],
 
   data() {
     return {
-      leafShow: false
+      leafShow: false,
+      image: require("@assets/images/nuk-pro-buildings.png"),
+      rules: [
+        'Debes realizar la búsqueda de una imagen usando el formulario.',
+        'Se mostrará una imagen por cada vendedor.',
+        'Debes seleccionar la imagen que más te guste, de esta forma el vendedor acumulará puntos.',
+        'El vendedor que acumule 20 puntos gana el concurso, y finaliza la carrera.'
+      ],
+      errors: {
+        required: 'El nombre de la imagen es requerida',
+        length: 'El nombre de la imagen es inválida'
+      },
+      form: {
+        imageName: ''
+      },
+      sending: false
+    }
+  },
+
+  validations: {
+    form: {
+      firstName: {
+        required,
+        minLength: minLength(3),
+        maxLength: maxLength(20)
+      }
     }
   },
 
   computed: {
+    ...imagesComputed,
+
     headerStyle() {
       return {
-        backgroundImage: `url(${this.image})`
+        background: `url(${this.image}) ${design['global-light-blue-50']}`
       }
     },
 
@@ -52,6 +70,16 @@ export default {
         title,
         description
       }
+    },
+
+    getErrorMessage() {
+      if (!this.$v.form.imageName.required) return this.errors.required
+      else if (!this.$v.form.imageName.minlength || !this.$v.form.imageName.maxlength) return this.errors.length
+      else return null
+    },
+
+    labelButton() {
+      return this.sending ? 'Buscando...' : 'Buscar'
     }
   },
 
@@ -66,8 +94,44 @@ export default {
   },
 
   methods: {
+    ...imagesMethods,
+
     leafActive() {
       this.leafShow = window.innerWidth >= 768
+    },
+
+    getValidationClass(fieldName) {
+      const field = this.$v.form[fieldName]
+
+      if (field) {
+        return {
+          'md-invalid': field.$invalid && field.$dirty
+        }
+      }
+    },
+
+    clearForm() {
+      this.$v.$reset()
+
+      this.form.imageName = null
+    },
+
+    async searchImage() {
+      this.sending = true
+
+      await this.fetchImages(this.form.imageName).finally(() => {
+        this.sending = false
+
+        this.clearForm()
+      })
+    },
+
+    validateSearch() {
+      this.$v.$touch()
+
+      if (!this.$v.$invalid) {
+        this.searchImage()
+      }
     }
   }
 }
@@ -75,24 +139,63 @@ export default {
 
 <template>
   <Layout class="wrapper">
-    <Parallax class="page-header header-filter" :style="headerStyle">
+    <parallax class="page-header header-filter" :style="headerStyle">
       <div class="md-layout">
         <div class="md-layout-item">
-          <div class="image-wrapper">
-            <img v-show="leafShow" :src="leaf4" alt="leaf4" class="leaf4" />
-            <img v-show="leafShow" :src="leaf3" alt="leaf3" class="leaf3" />
-            <img v-show="leafShow" :src="leaf2" alt="leaf2" class="leaf2" />
-            <img v-show="leafShow" :src="leaf1" alt="leaf1" class="leaf1" />
-            <div class="brand">
-              <h1 v-text="headerText.title"></h1>
-              <h3 v-text="headerText.description"></h3>
+          <div class="brand">
+            <h1 v-text="headerText.title"></h1>
+            <h3 v-text="headerText.description"></h3>
+          </div>
+        </div>
+      </div>
+    </parallax>
+
+    <div class="main main-raised">
+      <div class="section section-basic">
+        <div class="container">
+          <div class="title">
+            <h2>Consurso</h2>
+
+            <div class="md-layout md-gutter">
+              <div class="md-layout-item">
+                <form novalidate class="md-layout" @submit.prevent="validateSearch">
+                  <md-card class="md-layout-item md-size-50 md-small-size-100">
+                    <md-card-header>
+                      <div class="md-title">Busca una imagen:</div>
+                    </md-card-header>
+
+                    <md-card-content>
+                      <div class="md-layout md-gutter">
+                        <div class="md-layout-item md-small-size-100">
+                          <md-field :class="getValidationClass('imageName')">
+                            <label for="image-name">Ingresa el texto de la búsqueda</label>
+                            <md-input id="image-name" v-model="form.imageName" name="image-name"
+                              autocomplete="given-name" :disabled="sending" />
+                            <span v-if="$v.$invalid" class="md-error">{{ getErrorMessage() }}</span>
+                          </md-field>
+                        </div>
+                      </div>
+                    </md-card-content>
+
+                    <md-card-actions>
+                      <md-button type="submit" class="md-primary" :disabled="sending">{{ labelButton }}</md-button>
+                    </md-card-actions>
+                  </md-card>
+                </form>
+
+                {{ getImages }}
+              </div>
+              <div class="md-layout-item md-size-30">
+                <h3>Reglas de consurso</h3>
+
+                <md-list>
+                  <md-list-item v-for="(rule, index) in rules" :key="index">{{ rule }}</md-list-item>
+                </md-list>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </Parallax>
-
-    <div class="main main-raised">
     </div>
   </Layout>
 </template>

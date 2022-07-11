@@ -1,12 +1,14 @@
-@import 'colors';
-@import 'durations';
-@import 'fonts';
-@import 'layers';
-@import 'sizes';
-@import 'typography';
+// @import 'colors';
+// @import 'durations';
+// @import 'fonts';
+// @import 'layers';
+// @import 'sizes';
+// @import 'typography';
 @import './material-kit/index';
 
 :export {
+  global-light-blue-50: $light-blue-50;
+
   // Any values that need to be accessible from JavaScript
   // outside of a Vue component can be defined here, prefixed
   // with `global-` to avoid conflicts with classes. For

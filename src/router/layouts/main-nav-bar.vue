@@ -6,7 +6,7 @@ import { title } from '@src/app.config'
 
 export default {
   components: {
-    MobileMenu
+    'mobile-menu': MobileMenu
   },
 
   props: {
@@ -121,20 +121,24 @@ export default {
 
         <div class="md-collapse">
           <div class="md-collapse-wrapper">
-            <MobileMenu nav-mobile-section-start="false">
+            <mobile-menu nav-mobile-section-start="false">
               <!-- Here you can add your items from the section-start of your toolbar -->
-            </MobileMenu>
+            </mobile-menu>
 
             <md-list>
-              <md-list-item href="https://demos.creative-tim.com/vue-material-kit/documentation/" target="_blank">
-                <em class="material-icons">content_paste</em>
-                <p>Documentation</p>
-              </md-list-item>
+              <router-link v-slot="{ href, navigate }" :to="{ name: 'sellers' }" custom>
+                <md-list-item :href="href" @click="navigate">
+                  <em class="material-icons">content_paste</em>
+                  <p>Documentation</p>
+                </md-list-item>
+              </router-link>
 
-              <md-list-item href="#">
-                <em class="material-icons">cloud_download</em>
-                <p>Download</p>
-              </md-list-item>
+              <router-link v-slot="{ href, navigate }" :to="{ name: 'concourse' }" custom>
+                <md-list-item :href="href" @click="navigate">
+                  <em class="material-icons">cloud_download</em>
+                  <p>Download</p>
+                </md-list-item>
+              </router-link>
             </md-list>
           </div>
         </div>

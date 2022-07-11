@@ -53,6 +53,11 @@ export default [
     component: () => lazyLoadView(import('@views/home.vue'))
   },
   {
+    path: '/concourse',
+    name: 'concourse',
+    component: () => lazyLoadView(import('@views/home.vue'))
+  },
+  {
     path: '/seller/:id',
     name: 'seller',
     component: () => lazyLoadView(import('@views/profile.vue')),

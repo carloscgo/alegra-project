@@ -3,6 +3,8 @@ import GlobalMixins from "@utils/global-mixins"
 import GlobalComponents from "@utils/global-components"
 import VueMaterial from "vue-material"
 
+import 'vue-material/dist/vue-material.min.css'
+
 export default {
   install(Vue) {
     Vue.use(GlobalDirectives)
@@ -10,23 +12,23 @@ export default {
     Vue.use(GlobalComponents)
     Vue.use(VueMaterial)
 
-    // change single option
-    /* Vue.material.locale.dateFormat = 'dd/MM/yyyy'
-
-    // change multiple options
-    Vue.material = {
-      ...Vue.material,
-
-      locale: {
-        ...Vue.material.locale,
-
-        dateFormat: 'dd/MM/yyyy',
-        firstDayOfAWeek: 1
-      },
-
-      ripple: true,
-      cancel: 'Cancelar',
-      confirm: 'Listo'
+    /* // change single option
+    *  Vue.material.locale.dateFormat = 'dd/MM/yyyy'
+    *
+    *    // change multiple options
+    *    Vue.material = {
+    *      ...Vue.material,
+    *
+    *      locale: {
+    *        ...Vue.material.locale,
+    *
+    *        dateFormat: 'dd/MM/yyyy',
+    *        firstDayOfAWeek: 1
+    *      },
+    *
+    *      ripple: true,
+    *      cancel: 'Cancelar',
+    *      confirm: 'Listo'
     } */
   }
 }

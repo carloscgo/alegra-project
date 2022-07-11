@@ -1,8 +1,5 @@
 <template>
-  <md-list
-    class="nav-mobile-menu nav-mobile-section-start"
-    v-if="navMobileSectionStart === 'true'"
-  >
+  <md-list v-if="navMobileSectionStart === 'true'" class="nav-mobile-menu nav-mobile-section-start">
     <slot></slot>
   </md-list>
 </template>

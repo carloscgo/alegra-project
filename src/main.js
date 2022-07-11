@@ -15,6 +15,18 @@ if (process.env.VUE_APP_TEST === 'e2e') {
 
 Vue.use(MaterialKit)
 
+const NavbarStore = {
+  showNavbar: false
+}
+
+Vue.mixin({
+  data() {
+    return {
+      NavbarStore
+    }
+  }
+})
+
 const app = new Vue({
   router,
   store,
