@@ -48,7 +48,7 @@ export default {
 
   validations: {
     form: {
-      firstName: {
+      imageName: {
         required,
         minLength: minLength(3),
         maxLength: maxLength(20)
@@ -119,7 +119,7 @@ export default {
     async searchImage() {
       this.sending = true
 
-      await this.fetchImages(this.form.imageName).finally(() => {
+      await this.fetchImages({ query: this.form.imageName }).finally(() => {
         this.sending = false
 
         this.clearForm()
@@ -154,7 +154,7 @@ export default {
       <div class="section section-basic">
         <div class="container">
           <div class="title">
-            <h2>Consurso</h2>
+            <h2>Concurso</h2>
 
             <div class="md-layout md-gutter">
               <div class="md-layout-item">
@@ -171,25 +171,26 @@ export default {
                             <label for="image-name">Ingresa el texto de la búsqueda</label>
                             <md-input id="image-name" v-model="form.imageName" name="image-name"
                               autocomplete="given-name" :disabled="sending" />
-                            <span v-if="$v.$invalid" class="md-error">{{ getErrorMessage() }}</span>
+                            <span v-if="$v.$invalid" class="md-error">{{ getErrorMessage }}</span>
                           </md-field>
                         </div>
                       </div>
                     </md-card-content>
 
                     <md-card-actions>
-                      <md-button type="submit" class="md-primary" :disabled="sending">{{ labelButton }}</md-button>
+                      <md-button type="submit" class="md-default" :disabled="sending">{{ labelButton }}</md-button>
                     </md-card-actions>
                   </md-card>
                 </form>
 
                 {{ getImages }}
               </div>
-              <div class="md-layout-item md-size-30">
-                <h3>Reglas de consurso</h3>
+              <div class="md-layout-item md-size-30 md-medium-size-100">
+                <h3>Reglas de concurso</h3>
 
                 <md-list>
-                  <md-list-item v-for="(rule, index) in rules" :key="index">{{ rule }}</md-list-item>
+                  <md-list-item v-for="(rule, index) in rules" :key="index" :class="$style.listItem">{{ rule }}
+                  </md-list-item>
                 </md-list>
               </div>
             </div>
@@ -199,3 +200,9 @@ export default {
     </div>
   </Layout>
 </template>
+
+<style lang="scss" module>
+.listItem>div>div {
+  white-space: pre-wrap;
+}
+</style>

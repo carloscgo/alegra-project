@@ -1,7 +1,7 @@
 import { findImages } from '@state/services/images'
 
 export const state = {
-  images: {}
+  images: []
 }
 
 export const getters = {

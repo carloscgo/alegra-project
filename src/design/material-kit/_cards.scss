@@ -60,16 +60,6 @@
     }
 
     .md-card-header{
-        @include shadow-big();
-        margin: -40px  20px $margin-base;
-        border-radius: $border-radius-base;
-        padding: $padding-base + 5 0;
-        background-color: $gray-color;
-
-        .title,
-        .card-title{
-          color: $white-color;
-        }
         .category{
             margin: 0;
             color: rgba($white-color, .62);
@@ -136,9 +126,6 @@
             display: block;
         }
 
-        div{
-            display: inline-block;
-        }
         .author{
             color: $gray-color;
         }
