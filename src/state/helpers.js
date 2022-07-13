@@ -1,10 +1,10 @@
 import { mapGetters, mapActions } from 'vuex'
 
 export const sellerComputed = {
-  ...mapGetters('sellers', ['currentSeller']),
+  ...mapGetters('sellers', ['currentSeller', 'allSellers']),
 }
 export const sellerMethods = {
-  ...mapActions('sellers', ['fetchSeller']),
+  ...mapActions('sellers', ['fetchSeller', 'fetchAllSellers', 'increaseCountSeller']),
 }
 
 export const imagesComputed = {

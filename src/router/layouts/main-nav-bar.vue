@@ -85,7 +85,7 @@ export default {
       const navbarColor = document.getElementById("toolbar")
 
       this.currentScrollValue = scrollValue
-
+      // console.log('this.colorOnScroll', this.colorOnScroll)
       if (this.colorOnScroll > 0 && scrollValue > this.colorOnScroll) {
         this.extraNavClasses = `md-${this.type}`
         navbarColor.classList.remove("md-transparent")
@@ -109,7 +109,6 @@ export default {
     :color-on-scroll="colorOnScroll">
     <div class="md-toolbar-row md-collapse-lateral">
       <div class="md-toolbar-section-start">
-        <h3 class="md-title" v-text="headerText.title"></h3>
       </div>
       <div class="md-toolbar-section-end">
         <md-button class="md-just-icon md-simple md-toolbar-toggle" :class="{ toggled: toggledClass }"

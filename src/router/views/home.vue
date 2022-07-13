@@ -7,14 +7,16 @@ import {
 } from 'vuelidate/lib/validators'
 import { title, description } from '@src/app.config'
 import Layout from '@layouts/main.vue'
+import ImageCard from '@components/image-card.vue'
 import {
   imagesComputed,
   imagesMethods
 } from '@state/helpers'
+import propsMixin from '@utils/props-mixin'
 import design from '@design'
 
 export default {
-  components: { Layout },
+  components: { Layout, ImageCard },
 
   bodyClass: "index-page",
 
@@ -23,7 +25,7 @@ export default {
     meta: [{ name: 'description', content: description }]
   },
 
-  mixins: [validationMixin],
+  mixins: [validationMixin, propsMixin],
 
   data() {
     return {
@@ -183,6 +185,8 @@ export default {
                   </md-card>
                 </form>
 
+                <ImageCard v-for="(img, index) in getImages" :id="img.id" :key="index" :title="img.title"
+                  :image="img.image" :seller-id="img.seller_id" />
                 {{ getImages }}
               </div>
               <div class="md-layout-item md-size-30 md-medium-size-100">
