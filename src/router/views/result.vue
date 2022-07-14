@@ -17,8 +17,8 @@ export default {
 
   bodyClass: "result-page",
 
-  async mounted() {
-    await this.fetchAllSellers()
+  mounted() {
+    this.fetchAllSellers()
   },
 
   methods: {

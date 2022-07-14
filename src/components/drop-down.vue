@@ -3,7 +3,7 @@
     { open: isOpen },
     { dropdown: direction === 'down' },
     { dropup: direction === 'up' },
-  ]" @click="toggleDropDown">
+  ]" aria-label="dropdown" @click="toggleDropDown">
     <slot name="title">
       <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)">
         <em :class="icon"></em>

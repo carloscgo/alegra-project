@@ -1,3 +1,5 @@
+/* istanbul ignore file */
+
 export default function debounce(func, wait, immediate) {
   let timeout
 

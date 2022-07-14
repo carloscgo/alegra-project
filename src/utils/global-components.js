@@ -1,3 +1,5 @@
+/* istanbul ignore file */
+
 import DropDown from "@components/drop-down.vue"
 import Modal from "@components/modal.vue"
 import Parallax from "@components/parallax.vue"

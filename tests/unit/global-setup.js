@@ -1,3 +1,4 @@
+/* eslint-disable promise/param-names */
 const app = require('express')()
 
 app.use((_request, response, next) => {

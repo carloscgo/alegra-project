@@ -1,3 +1,5 @@
+/* istanbul ignore file */
+
 import consoleLog from '@utils/console-log'
 import axios from './axiosConfig'
 

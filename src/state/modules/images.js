@@ -1,3 +1,5 @@
+/* istanbul ignore file */
+
 import { findImages } from '@state/services/images'
 import lowerCase from 'lodash/lowerCase'
 import isEmpty from 'lodash/isEmpty'

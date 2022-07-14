@@ -108,8 +108,8 @@ export default {
     }
   },
 
-  async created() {
-    await this.fetchAllSellers()
+  mounted() {
+    this.fetchAllSellers()
   },
 
   methods: {
@@ -239,12 +239,6 @@ export default {
                   </md-card>
                 </form>
 
-                <div class="md-layout md-gutter">
-                  <ImageCard v-for="(img, index) in getImages" :id="img.id" :key="index" :title="img.title"
-                    :image="img.image" :seller-id="img.seller_id" @click="showImage(img.image)" />
-
-                  <ImageModal :open="showImageModal" :image="imageShowedModal" @onClose="hideImage" />
-                </div>
                 <div class="md-layout-item md-size-30 md-medium-size-100">
                   <h3>Reglas de concurso</h3>
 
@@ -252,6 +246,13 @@ export default {
                     <md-list-item v-for="(rule, index) in rules" :key="index" :class="$style.listItem">{{ rule }}
                     </md-list-item>
                   </md-list>
+                </div>
+
+                <div class="md-layout md-gutter">
+                  <ImageCard v-for="(img, index) in getImages" :id="img.id" :key="index" :title="img.title"
+                    :image="img.image" :seller-id="img.seller_id" @click="showImage(img.image)" />
+
+                  <ImageModal :open="showImageModal" :image="imageShowedModal" @onClose="hideImage" />
                 </div>
               </div>
             </div>

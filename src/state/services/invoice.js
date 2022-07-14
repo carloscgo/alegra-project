@@ -1,3 +1,5 @@
+/* istanbul ignore file */
+
 import moment from 'moment'
 import consoleLog from '@utils/console-log'
 import { addContact } from '@state/services/contact'

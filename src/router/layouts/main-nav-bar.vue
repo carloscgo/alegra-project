@@ -60,14 +60,22 @@ export default {
   },
 
   mounted() {
-    document.addEventListener("scroll", this.scrollListener)
+    this.addEvent()
   },
 
   beforeDestroy() {
-    document.removeEventListener("scroll", this.scrollListener)
+    this.removeEvent()
   },
 
   methods: {
+    addEvent() {
+      document.addEventListener("scroll", this.scrollListener)
+    },
+
+    removeEvent() {
+      document.removeEventListener("scroll", this.scrollListener)
+    },
+
     bodyClick() {
       let bodyClick = document.getElementById("bodyClick")
 

@@ -10,18 +10,22 @@ export default {
   },
 
   mounted() {
-    const self = this
-
-    window.addEventListener("scroll", function () {
-      if (window.innerWidth > 991) {
-        const scrollVal = this.scrollY
-
-        self.checkForParallax(scrollVal)
-      }
-    })
+    this.init()
   },
 
   methods: {
+    init() {
+      const self = this
+
+      window.addEventListener("scroll", function () {
+        if (window.innerWidth > 991) {
+          const scrollVal = this.scrollY
+
+          self.checkForParallax(scrollVal)
+        }
+      })
+    },
+
     handleScroll(scrollVal) {
       const oVal = scrollVal / 3
 

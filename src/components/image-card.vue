@@ -46,18 +46,22 @@ export default {
     }
   },
 
-  async mounted() {
-    if (this.sellerId) {
-      const seller = await this.fetchSeller({ id: this.sellerId })
-
-      if (!isEmpty(seller)) {
-        this.provider = seller.name
-      }
-    }
+  mounted() {
+    this.init(this.sellerId)
   },
 
   methods: {
     ...sellerMethods,
+
+    async init(sellerId) {
+      if (sellerId) {
+        const seller = await this.fetchSeller({ id: sellerId })
+
+        if (!isEmpty(seller)) {
+          this.provider = seller.name
+        }
+      }
+    },
 
     getStorage() {
       return JSON.parse(localStorage.getItem(STORAGE)) || []

@@ -1,9 +1,9 @@
+/* istanbul ignore file */
+
 import GlobalDirectives from "@utils/global-directives"
 import GlobalMixins from "@utils/global-mixins"
 import GlobalComponents from "@utils/global-components"
 import VueMaterial from "vue-material"
-
-import 'vue-material/dist/vue-material.min.css'
 
 export default {
   install(Vue) {

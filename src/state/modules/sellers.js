@@ -1,3 +1,5 @@
+/* istanbul ignore file */
+
 import { findSeller, getAllSellers, addCountSeller } from '@state/services/sellers'
 import isEmpty from 'lodash/isEmpty'
 import isNull from 'lodash/isNull'

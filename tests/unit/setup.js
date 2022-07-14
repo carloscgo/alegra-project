@@ -1,3 +1,4 @@
+
 import fs from 'fs'
 import path from 'path'
 import Vue from 'vue'
@@ -9,20 +10,22 @@ import axios from 'axios'
 // ===
 
 // https://vue-test-utils.vuejs.org/
-const vueTestUtils = require('@vue/test-utils')
+import {
+  mount,
+  shallowMount,
+  createLocalVue
+} from '@vue/test-utils'
 // https://lodash.com/
-const _ = require('lodash')
+import _ from 'lodash'
+
+export const localVue = createLocalVue()
+
 _.mixin({
-  pascalCase: _.flow(_.camelCase, _.upperFirst),
+  pascalCase: _.flow(
+    _.camelCase,
+    _.upperFirst
+  ),
 })
-
-// ===
-// Configure Axios
-// ===
-
-// Force Axios to use the XHR adapter so that it behaves
-// more like it would in a browser environment.
-axios.defaults.adapter = require('axios/lib/adapters/xhr')
 
 // ===
 // Configure Vue
@@ -52,16 +55,16 @@ for (const fileName of globalComponentFiles) {
 // ===
 
 Object.defineProperty(window, 'localStorage', {
-  value: (function() {
+  value: (function () {
     let store = {}
     return {
-      getItem: function(key) {
+      getItem: function (key) {
         return store[key] || null
       },
-      setItem: function(key, value) {
+      setItem: function (key, value) {
         store[key] = value.toString()
       },
-      clear: function() {
+      clear: function () {
         store = {}
       },
     }
@@ -69,36 +72,16 @@ Object.defineProperty(window, 'localStorage', {
 })
 
 // ===
-// Console handlers
-// ===
-
-// Make console.error throw, so that Jest tests fail
-const error = console.error
-console.error = function(message) {
-  error.apply(console, arguments)
-  // NOTE: You can whitelist some `console.error` messages here
-  //       by returning if the `message` value is acceptable.
-  throw message instanceof Error ? message : new Error(message)
-}
-
-// Make console.warn throw, so that Jest tests fail
-const warn = console.warn
-console.warn = function(message) {
-  warn.apply(console, arguments)
-  // NOTE: You can whitelist some `console.warn` messages here
-  //       by returning if the `message` value is acceptable.
-  throw message instanceof Error ? message : new Error(message)
-}
-
-// ===
 // Global helpers
 // ===
 
 // https://vue-test-utils.vuejs.org/api/#mount
-global.mount = vueTestUtils.mount
+global.mount = mount
 
 // https://vue-test-utils.vuejs.org/api/#shallowmount
-global.shallowMount = vueTestUtils.shallowMount
+global.shallowMount = shallowMount
+
+global.localVue = Vue
 
 // A special version of `shallowMount` for view components
 global.shallowMountView = (Component, options = {}) => {
@@ -107,8 +90,12 @@ global.shallowMountView = (Component, options = {}) => {
     stubs: {
       Layout: {
         functional: true,
-        render(h, { slots }) {
-          return <div>{slots().default}</div>
+        render(h, {
+          slots
+        }) {
+          return `<div>${
+            slots().default
+          }</div>`
         },
       },
       ...(options.stubs || {}),
@@ -117,12 +104,19 @@ global.shallowMountView = (Component, options = {}) => {
 }
 
 // A helper for creating Vue component mocks
-global.createComponentMocks = ({ store, router, style, mocks, stubs }) => {
+global.createComponentMocks = ({
+  store,
+  router,
+  style,
+  mocks,
+  stubs
+}) => {
   // Use a local version of Vue, to avoid polluting the global
   // Vue and thereby affecting other tests.
   // https://vue-test-utils.vuejs.org/api/#createlocalvue
-  const localVue = vueTestUtils.createLocalVue()
-  const returnOptions = { localVue }
+  const returnOptions = {
+    localVue
+  }
 
   // https://vue-test-utils.vuejs.org/api/options.html#stubs
   returnOptions.stubs = stubs || {}
@@ -155,10 +149,8 @@ global.createComponentMocks = ({ store, router, style, mocks, stubs }) => {
               state: storeModule.state || {},
               getters: storeModule.getters || {},
               actions: storeModule.actions || {},
-              namespaced:
-                typeof storeModule.namespaced === 'undefined'
-                  ? true
-                  : storeModule.namespaced,
+              namespaced: typeof storeModule.namespaced === 'undefined' ?
+                true : storeModule.namespaced,
             },
           }
         })
@@ -181,8 +173,8 @@ global.createComponentMocks = ({ store, router, style, mocks, stubs }) => {
   return returnOptions
 }
 
-global.createModuleStore = (vuexModule, options = {}) => {
-  vueTestUtils.createLocalVue().use(Vuex)
+global.createModuleStore = (vuexModule, options = {}, extrasModules = {}) => {
+  createLocalVue().use(Vuex)
   const store = new Vuex.Store({
     ..._.cloneDeep(vuexModule),
     modules: {
@@ -192,18 +184,22 @@ global.createModuleStore = (vuexModule, options = {}) => {
           currentUser: options.currentUser,
         },
       },
+      ...extrasModules
     },
-    // Enable strict mode when testing Vuex modules so that
-    // mutating state outside of a mutation results in a
-    // failing test.
-    // https://vuex.vuejs.org/guide/strict.html
-    strict: true,
   })
-  axios.defaults.headers.common.Authorization = options.currentUser
-    ? options.currentUser.token
-    : ''
+  axios.defaults.baseURL = `${window.location.href}api`
+  axios.defaults.headers.common.Authorization = options.currentUser ? options.currentUser.token : ''
   if (vuexModule.actions.init) {
     store.dispatch('init')
   }
   return store
 }
+
+global.console = {
+  log: console.log,
+  // eslint-disable-next-line no-undef
+  error: jest.fn(),
+  warn: console.warn,
+  info: console.info,
+  debug: console.debug,
+};

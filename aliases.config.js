@@ -14,6 +14,7 @@ const aliases = {
   '@utils': 'src/utils',
   '@state': 'src/state',
   '@design': 'src/design/index.scss',
+  '@setupJest': 'tests/unit/setup.js',
 }
 
 module.exports = {

@@ -1,3 +1,5 @@
+/* istanbul ignore file */
+
 const GlobalMixins = {
   install(Vue) {
     Vue.mixin({

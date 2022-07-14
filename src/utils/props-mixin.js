@@ -1,3 +1,5 @@
+/* istanbul ignore file */
+
 import truncate from 'lodash/truncate'
 import {
   sellerComputed

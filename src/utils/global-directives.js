@@ -1,3 +1,5 @@
+/* istanbul ignore file */
+
 import { directive as vClickOutside } from "vue-clickaway"
 
 /**

@@ -1,3 +1,5 @@
+/* istanbul ignore file */
+
 import { addInvoice, findInvoice } from '@state/services/invoice'
 
 export const state = {

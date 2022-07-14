@@ -37,7 +37,7 @@ export default {
   <modal v-if="showModal" @close="modalHide">
     <template slot="header">
       <md-button class="md-just-icon md-round modal-default-button" :class="$style.buttonClose" @click="modalHide">
-        <md-icon :class="$style.close">clear</md-icon>
+        <md-icon>clear</md-icon>
       </md-button>
     </template>
 
@@ -59,14 +59,14 @@ export default {
 .buttonClose {
   background-color: $white  !important;
 
+  &>div>div>i {
+    font-size: 20px !important;
+    font-weight:  !important;
+    color: $black  !important;
+  }
+
   @media (screen and min-width: 470px) {
     left: calc(100% - 15px) !important;
   }
-}
-
-.close {
-  font-size: 20px !important;
-  font-weight:  !important;
-  color: $black  !important;
 }
 </style>
