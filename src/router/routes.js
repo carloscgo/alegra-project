@@ -1,6 +1,3 @@
-import store from '@state/store'
-import consoleLog from '@utils/console-log'
-
 // Lazy-loads view components, but with better UX. A loading view
 // will be used if the component takes a while to load, falling
 // back to a timeout view in case the page fails to load. You can
@@ -48,47 +45,9 @@ export default [
     component: () => lazyLoadView(import('@views/home.vue'))
   },
   {
-    path: '/sellers',
-    name: 'sellers',
-    component: () => lazyLoadView(import('@views/home.vue'))
-  },
-  {
-    path: '/concourse',
-    name: 'concourse',
-    component: () => lazyLoadView(import('@views/home.vue'))
-  },
-  {
-    path: '/seller/:id',
-    name: 'seller',
-    component: () => lazyLoadView(import('@views/profile.vue')),
-    meta: {
-      // HACK: In order to share data between the `beforeResolve` hook
-      // and the `props` function, we must create an object for temporary
-      // data only used during route resolution.
-      tmp: {},
-      beforeResolve(routeTo, _routeFrom, next) {
-        store
-          // Try to fetch the seller's information by their id
-          .dispatch('sellers/fetchSeller', { id: routeTo.params.id })
-          .then((seller) => {
-            // Add the seller to `meta.tmp`, so that it can
-            // be provided as a prop.
-            routeTo.meta.tmp.seller = seller
-            // Continue to the route.
-            next()
-          })
-          .catch((err) => {
-            consoleLog({err})
-
-            // If a seller with the provided id could not be
-            // found, redirect to the 404 page.
-            next({ name: '404', params: { resource: 'Seller' } })
-          })
-      }
-    },
-    // Set the seller from the route params, once it's set in the
-    // beforeResolve route guard.
-    props: (route) => ({ seller: route.meta.tmp.seller })
+    path: '/result',
+    name: 'result',
+    component: () => lazyLoadView(import('@views/result.vue'))
   },
   {
     path: '/404',

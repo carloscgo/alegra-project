@@ -44,6 +44,18 @@ export default {
       return {
         title
       }
+    },
+
+    textLink() {
+      return this.$router.currentRoute.path === '/' ? 'Resultados' : 'Inicio'
+    },
+
+    iconLink() {
+      return this.$router.currentRoute.path === '/' ? 'content_paste' : 'home'
+    },
+
+    routeLink() {
+      return this.$router.currentRoute.path === '/' ? 'result' : 'home'
     }
   },
 
@@ -85,7 +97,7 @@ export default {
       const navbarColor = document.getElementById("toolbar")
 
       this.currentScrollValue = scrollValue
-      // console.log('this.colorOnScroll', this.colorOnScroll)
+
       if (this.colorOnScroll > 0 && scrollValue > this.colorOnScroll) {
         this.extraNavClasses = `md-${this.type}`
         navbarColor.classList.remove("md-transparent")
@@ -108,8 +120,6 @@ export default {
   <md-toolbar id="toolbar" md-elevation="0" class="md-transparent md-absolute" :class="extraNavClasses"
     :color-on-scroll="colorOnScroll">
     <div class="md-toolbar-row md-collapse-lateral">
-      <div class="md-toolbar-section-start">
-      </div>
       <div class="md-toolbar-section-end">
         <md-button class="md-just-icon md-simple md-toolbar-toggle" :class="{ toggled: toggledClass }"
           @click="toggleNavbarMobile">
@@ -125,17 +135,10 @@ export default {
             </mobile-menu>
 
             <md-list>
-              <router-link v-slot="{ href, navigate }" :to="{ name: 'sellers' }" custom>
+              <router-link v-slot="{ href, navigate }" :to="{ name: routeLink }" custom>
                 <md-list-item :href="href" @click="navigate">
-                  <em class="material-icons">content_paste</em>
-                  <p>Documentation</p>
-                </md-list-item>
-              </router-link>
-
-              <router-link v-slot="{ href, navigate }" :to="{ name: 'concourse' }" custom>
-                <md-list-item :href="href" @click="navigate">
-                  <em class="material-icons">cloud_download</em>
-                  <p>Download</p>
+                  <em class="material-icons">{{ iconLink }}</em>
+                  <p>{{ textLink }}</p>
                 </md-list-item>
               </router-link>
             </md-list>

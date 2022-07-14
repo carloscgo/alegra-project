@@ -1,9 +1,31 @@
+
+<script>
+export default {
+  props: {
+    transparent: {
+      type: Boolean,
+      default: false
+    }
+  },
+
+  methods: {
+    closeModal() {
+      this.$emit("close")
+    },
+
+    hasSlot(name) {
+      return !!this.$slots[name] || !!this.$scopedSlots[name]
+    }
+  }
+}
+</script>
+
 <template>
   <transition name="modal">
     <div class="modal-mask">
       <div class="modal-wrapper">
-        <div v-click-outside="closeModal" class="modal-container">
-          <div class="modal-header">
+        <div v-click-outside="closeModal" class="modal-container" :class="{ transparent: 'transparent' }">
+          <div v-if="hasSlot('header')" class="modal-header">
             <slot name="header"></slot>
           </div>
 
@@ -11,7 +33,7 @@
             <slot name="body"></slot>
           </div>
 
-          <div class="modal-footer">
+          <div v-if="hasSlot('footer')" class="modal-footer">
             <slot name="footer"></slot>
           </div>
         </div>
@@ -20,25 +42,11 @@
   </transition>
 </template>
 
-<script>
-export default {
-  methods: {
-    closeModal() {
-      this.$emit("close")
-    }
-  }
-};
-</script>
-
 <style lang="scss">
-/*
- * The following styles are auto-applied to elements with
- * transition="modal" when their visibility is toggled
- * by Vue.js.
- *
- * You can easily play with the modal transition by editing
- * these styles.
- */
+.modal-container.transparent {
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
 
 .modal-enter {
   opacity: 0;

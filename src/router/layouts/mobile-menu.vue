@@ -1,9 +1,3 @@
-<template>
-  <md-list v-if="navMobileSectionStart === 'true'" class="nav-mobile-menu nav-mobile-section-start">
-    <slot></slot>
-  </md-list>
-</template>
-
 <script>
 export default {
   props: {
@@ -14,3 +8,9 @@ export default {
   }
 }
 </script>
+
+<template>
+  <md-list v-if="navMobileSectionStart === 'true'" class="nav-mobile-menu nav-mobile-section-start">
+    <slot></slot>
+  </md-list>
+</template>
