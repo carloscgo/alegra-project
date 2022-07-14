@@ -48,7 +48,7 @@ export default {
     },
 
     finalizedConcourse() {
-      return Boolean(this.allSellers.find(seller => seller.count >= MAX_POINTS)) || true
+      return Boolean(this.allSellers.find(seller => seller.count >= MAX_POINTS))
     }
   }
 }
