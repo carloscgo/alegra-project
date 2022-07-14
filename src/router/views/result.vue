@@ -1,6 +1,9 @@
 <script>
 import Layout from '@layouts/main.vue'
 import propsMixin from '@utils/props-mixin'
+import {
+  sellerMethods
+} from '@state/helpers'
 
 export default {
   page: {
@@ -16,6 +19,10 @@ export default {
 
   async mounted() {
     await this.fetchAllSellers()
+  },
+
+  methods: {
+    ...sellerMethods
   }
 }
 </script>
