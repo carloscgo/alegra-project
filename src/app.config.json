@@ -2,8 +2,5 @@
   "title": "Vendedores ¡a correr!",
   "description": "La empresa “Imágenes del mundo” ha realizado un concurso para sus vendedores, ¡una carrera para encontrar las imágenes más interesantes de la web!.",
   "alegraApiUrl": "https://api.alegra.com/api/v1/",
-  "authToken": "Y2FybG9zY2dvMTIzQGdtYWlsLmNvbTo1OThjNGZhZGFkYWFkNzNkNWM1Mw==",
-  "googleApiUrl": "https://www.googleapis.com/customsearch/v1",
-  "googleKey": "AIzaSyAOWvByiIabJhvXioUi2cQY8LJ7PfXvuoU",
-  "googleCtx": "792178f24307eacf7"
+  "authToken": "Y2FybG9zY2dvMTIzQGdtYWlsLmNvbTo1OThjNGZhZGFkYWFkNzNkNWM1Mw=="
 }
